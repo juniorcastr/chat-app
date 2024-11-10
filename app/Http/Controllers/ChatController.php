@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\NewMessage;
 use App\Models\Chat;
 use App\Models\Message;
 use App\Models\User;
@@ -12,7 +13,6 @@ class ChatController extends Controller
 {
     public function show()
     {
-        // Lista todos os usuários do sistema, exceto o usuário logado
         $users = User::where('id', '!=', Auth::id())->get();
 
         return view('chat.index', compact('users'));
@@ -41,7 +41,7 @@ class ChatController extends Controller
             'message' => $request->message,
         ]);
 
-        broadcast(new NewMessage($message)); // Broadcasting the new message
+        broadcast(new NewMessage($message));
 
         return back();
     }
