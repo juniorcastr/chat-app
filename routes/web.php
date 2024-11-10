@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ChatController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -25,4 +26,8 @@ Route::middleware([
     Route::get('/dashboard', function () {
         return view('dashboard');
     })->name('dashboard');
+
+    Route::get('/chat', [ChatController::class, 'show']);
+    Route::get('/chat/{userId}', [ChatController::class, 'openChat']);
+    Route::post('/chat/{chatId}/send', [ChatController::class, 'sendMessage']);
 });
