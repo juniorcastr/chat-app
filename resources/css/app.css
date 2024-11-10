@@ -5,3 +5,22 @@
 [x-cloak] {
     display: none;
 }
+
+.chat-button {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 100;
+}
+
+.chat-button .btn {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 50%;
+    text-decoration: none;
+    font-size: 16px;
+    display: inline-block;
+}
+

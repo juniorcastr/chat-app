@@ -25,4 +25,27 @@ class Chat extends Model
     {
         return $this->belongsTo(User::class, 'user_2_id');
     }
+
+    public static function getOrCreateChat($user1, $user2)
+    {
+        $chat = self::where(function ($query) use ($user1, $user2) {
+            $query->where('user_1_id', $user1->id)
+                ->where('user_2_id', $user2->id);
+        })
+            ->orWhere(function ($query) use ($user1, $user2) {
+                $query->where('user_1_id', $user2->id)
+                    ->where('user_2_id', $user1->id);
+            })
+            ->first();
+
+        if (!$chat) {
+            $chat = self::create([
+                'user_1_id' => $user1->id,
+                'user_2_id' => $user2->id
+            ]);
+        }
+
+        return $chat;
+    }
+
 }
