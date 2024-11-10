@@ -64,4 +64,10 @@ class User extends Authenticatable
         return $this->belongsToMany(Perfil::class, 'perfil_user');
     }
 
+    public function hasPerfil($perfilNome)
+    {
+        return $this->perfis->contains('nome', $perfilNome);
+    }
+
+
 }
