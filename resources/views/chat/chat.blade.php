@@ -1,50 +1,72 @@
 <x-app-layout>
-
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
             {{ __('Chats') }}
         </h2>
     </x-slot>
 
+{{--    TODO: Organizar a rolagem do chat e também passar a data formatada no back--}}
+
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
-
                 <div class="chat-window">
-                    <div class="messages">
+                    <div id="messages" style="height: 300px; overflow-y: scroll; border: 1px solid #ccc; padding: 10px;">
                         @foreach ($messages as $message)
                             <div class="message">
                                 <strong>{{ $message->user->name }}:</strong>
                                 <p>{{ $message->message }}</p>
-                                <small>{{ $message->created_at }}</small>
+                                <small>{{ \Carbon\Carbon::parse($message->created_at)->format('H:i - d/m/y') }}</small>
                             </div>
                         @endforeach
                     </div>
 
-                    <form action="{{ url('/chat/' . $chat->id . '/send') }}" method="POST">
+                    <form id="chat-form">
                         @csrf
-                        <textarea name="message" required placeholder="Digite sua mensagem..."></textarea>
+                        <textarea id="message-input" name="message" required placeholder="Digite sua mensagem..."></textarea>
                         <button type="submit">Enviar</button>
                     </form>
                 </div>
-
-
             </div>
         </div>
     </div>
 
+    <script src="https://js.pusher.com/8.2.0/pusher.min.js"></script>
+    <script>
+        // Configuração do Pusher
+        Pusher.logToConsole = true;
 
-</x-app-layout>
-
-<script>
-    Echo.channel('chat.{{ $chat->id }}')
-        .listen('NewMessage', (event) => {
-            let message = event.message;
-            // Exibe a nova mensagem na tela (você pode usar JavaScript para atualizações dinâmicas)
-            console.log(message);
+        var pusher = new Pusher('{{ env('PUSHER_APP_KEY') }}', {
+            cluster: '{{ env('PUSHER_APP_CLUSTER') }}',
         });
 
-    function openChatWindow() {
-        document.querySelector('.chat-window').classList.toggle('open');
-    }
-</script>
+        // Entrar no canal
+        var channel = pusher.subscribe('my-channel');
+        channel.bind('my-event', function(data) {
+            var messageElement = document.createElement('div');
+            messageElement.className = 'message';
+            messageElement.innerHTML = `
+                <strong>${data.userName}:</strong>
+                <p>${data.message}</p>
+                <small>${data.createdAt}</small>
+            `;
+            var messagesDiv = document.getElementById('messages');
+            messagesDiv.appendChild(messageElement);
+
+            messagesDiv.scrollTop = messagesDiv.scrollHeight;
+        });
+
+        // Envio da msg
+        document.getElementById('chat-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            var input = document.getElementById('message-input');
+            axios.post('/chat/{{ $chat->id }}/send', {
+                message: input.value
+            }).then(response => {
+                input.value = '';
+            }).catch(error => {
+                console.error("Erro ao enviar mensagem:", error);
+            });
+        });
+    </script>
+</x-app-layout>

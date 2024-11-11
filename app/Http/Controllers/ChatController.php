@@ -1,7 +1,6 @@
 <?php
 
 namespace App\Http\Controllers;
-
 use App\Events\NewMessage;
 use App\Models\Chat;
 use App\Models\Message;
@@ -41,8 +40,8 @@ class ChatController extends Controller
             'message' => $request->message,
         ]);
 
-        broadcast(new NewMessage($message));
+        event(new NewMessage($message->message, Auth::user()->name, $message->created_at));
 
-        return back();
+        return response()->json(['message' => $message]);
     }
 }
