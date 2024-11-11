@@ -44,7 +44,7 @@ class UserController extends Controller
         $validated = $request->validate([                               //novamente esse request poderia estar num arquivo separado, mass...
             'name' => 'required|string|max:255',
             'email' => 'required|email|unique:users',
-            'password' => 'required|string|min:8|confirmed',
+            'password' => 'required|string|min:8',
             'perfis' => 'required|array',
         ]);
 

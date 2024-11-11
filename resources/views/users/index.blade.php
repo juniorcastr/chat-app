@@ -9,7 +9,7 @@
             </div>
 
             <!-- Tabela de Usuários -->
-            {{--    TODO: Preciso criar um crud de perfis para atribuir os perfis para cada usuário--}}]
+            {{--    TODO: Preciso criar um crud de perfis para atribuir os perfis para cada usuário--}}
 
             <div class="overflow-hidden shadow-xl sm:rounded-lg">
                 <table class="min-w-full bg-white border border-gray-200">
