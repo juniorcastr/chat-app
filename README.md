@@ -68,3 +68,30 @@ Para executar os testes automatizados:
 ```bash
    php artisan serve
 
+## Estrutura do Projeto
+#Controladores
+ChatController: Gerencia as operações de exibição e envio de mensagens com caching e eventos de broadcast.
+UserController: Gerencia as operações de CRUD de usuários e perfis.
+
+## Eventos
+NewMessage: Evento que dispara quando uma nova mensagem é enviada, integrando com Pusher para comunicação em tempo real.
+
+##Redis
+Utilizado para armazenamento em cache de mensagens e gerenciamento de filas.
+Observabilidade com Laravel Telescope
+O Laravel Telescope foi configurado para monitorar operações como:
+
+Requisições HTTP
+Consultas ao banco de dados
+Jobs na fila
+Eventos e logs
+Testes
+Cobertura mínima de 80% nos testes.
+Testes unitários e de integração configurados para garantir a qualidade do código.
+
+## Documentação da API
+A documentação da API foi gerada com Swagger/OpenAPI. Para visualizar a documentação:
+
+Certifique-se de que o L5 Swagger foi configurado e instale as dependências necessárias.
+Acesse a rota /api/documentation para visualizar o Swagger UI.
+
