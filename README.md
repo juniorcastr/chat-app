@@ -65,8 +65,9 @@ Acesse a documentação da API gerada automaticamente com Swagger em http://loca
 
 ## Testes
 Para executar os testes automatizados:
-```bash
-   php artisan serve
+    ```bash
+    php artisan test
+
 
 ## Estrutura do Projeto
 #Controladores
@@ -94,4 +95,15 @@ A documentação da API foi gerada com Swagger/OpenAPI. Para visualizar a docume
 
 Certifique-se de que o L5 Swagger foi configurado e instale as dependências necessárias.
 Acesse a rota /api/documentation para visualizar o Swagger UI.
+
+## Telescope
+Para acessar o telescope
+    ```bash
+    http://127.0.0.1:8001/telescope/requests
+
+## Swagger
+Para acessar o telescope
+    ```bash
+    http://127.0.0.1:8001/api/documentation
+
 
