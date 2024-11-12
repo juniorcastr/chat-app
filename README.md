@@ -10,6 +10,16 @@ Um sistema de chat criado com Laravel, incluindo autenticação, comunicação e
 - MySQL ou outro banco de dados suportado
 - Redis para filas e cache (opcional, mas recomendado)
 
+
+## Funcionalidades Principais
+- Sistema de chat em tempo real utilizando Pusher para comunicação via WebSockets.
+- Implementação de cache com Redis para otimização de consultas de mensagens.
+- Processamento de mensagens assíncrono utilizando filas.
+- Design stateless para facilitar a escalabilidade horizontal.
+- Monitoramento detalhado com Laravel Telescope para observabilidade de desempenho e operações.
+- Testes unitários e de integração com cobertura mínima de 80%.
+
+
 ## Instalação
 
 1. Clone o repositório:
