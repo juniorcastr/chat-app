@@ -1,66 +1,109 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# ChatApp
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Um sistema de chat criado com Laravel, incluindo autenticação, comunicação em tempo real e gerenciamento de usuários.
 
-## About Laravel
+## Requisitos do Sistema
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+- PHP >= 8.1
+- Composer
+- Laravel 10.x ou mais recente
+- MySQL ou outro banco de dados suportado
+- Redis para filas e cache (opcional, mas recomendado)
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+## Funcionalidades Principais
+- Sistema de chat em tempo real utilizando Pusher para comunicação via WebSockets.
+- Implementação de cache com Redis para otimização de consultas de mensagens.
+- Processamento de mensagens assíncrono utilizando filas.
+- Design stateless para facilitar a escalabilidade horizontal.
+- Monitoramento detalhado com Laravel Telescope para observabilidade de desempenho e operações.
+- Testes unitários e de integração com cobertura mínima de 80%.
 
-## Learning Laravel
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+## Instalação
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+1. Clone o repositório:
+   ```bash
+   git clone https://github.com/seu-repositorio/chatapp.git
+   cd chatapp
+   
+2. Instale as dependências
+   ```bash
+   composer install
+   npm install && npm run dev
+   
+3. Duplique o .env.example para .env e ajuste as variáveis de ambiente.
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+4. Execute as migrações com os seeds
+   ```bash
+   php artisan migrate --seed
+   
+5. Gere a chave da aplicação
+   ```bash
+   php artisan key:generate
 
-## Laravel Sponsors
+6. Execute o servidor local:
+   ```bash
+   php artisan serve
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+## Uso
+Página inicial: Acesse a interface de chat em http://localhost:8000/.
 
-### Premium Partners
+usuário padrão
+admin@admin.com
+123123123
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
+## Funcionalidades
+Sistema de chat em tempo real usando Pusher e Laravel Echo.
 
-## Contributing
+CRUD de usuários com perfis de administrador.
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+Integração de Redis para cache e filas de mensagens.
 
-## Code of Conduct
+## Documentação da API
+Acesse a documentação da API gerada automaticamente com Swagger em http://localhost:8000/api/documentation.
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+## Testes
+Para executar os testes automatizados:
+    ```bash
+    php artisan test
 
-## Security Vulnerabilities
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+## Estrutura do Projeto
+#Controladores
+ChatController: Gerencia as operações de exibição e envio de mensagens com caching e eventos de broadcast.
+UserController: Gerencia as operações de CRUD de usuários e perfis.
 
-## License
+## Eventos
+NewMessage: Evento que dispara quando uma nova mensagem é enviada, integrando com Pusher para comunicação em tempo real.
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+##Redis
+Utilizado para armazenamento em cache de mensagens e gerenciamento de filas.
+Observabilidade com Laravel Telescope
+O Laravel Telescope foi configurado para monitorar operações como:
+
+Requisições HTTP
+Consultas ao banco de dados
+Jobs na fila
+Eventos e logs
+Testes
+Cobertura mínima de 80% nos testes.
+Testes unitários e de integração configurados para garantir a qualidade do código.
+
+## Documentação da API
+A documentação da API foi gerada com Swagger/OpenAPI. Para visualizar a documentação:
+
+Certifique-se de que o L5 Swagger foi configurado e instale as dependências necessárias.
+Acesse a rota /api/documentation para visualizar o Swagger UI.
+
+## Telescope
+Para acessar o telescope
+    ```bash
+    http://127.0.0.1:8001/telescope/requests
+
+## Swagger
+Para acessar o telescope
+    ```bash
+    http://127.0.0.1:8001/api/documentation
+
+

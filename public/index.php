@@ -20,6 +20,11 @@ if (file_exists($maintenance = __DIR__.'/../storage/framework/maintenance.php'))
     require $maintenance;
 }
 
+if (extension_loaded('ddtrace')) {
+    \DDTrace\Bootstrap::tracer()->init();
+}
+
+
 /*
 |--------------------------------------------------------------------------
 | Register The Auto Loader
