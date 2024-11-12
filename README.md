@@ -49,7 +49,9 @@ Um sistema de chat criado com Laravel, incluindo autenticação, comunicação e
 ## Uso
 Página inicial: Acesse a interface de chat em http://localhost:8000/.
 
-Autenticação: Utilize o Laravel Jetstream para registro/login.
+usuário padrão
+admin@admin.com
+123123123
 
 ## Funcionalidades
 Sistema de chat em tempo real usando Pusher e Laravel Echo.
