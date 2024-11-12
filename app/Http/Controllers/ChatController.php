@@ -9,6 +9,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Log;
 
 class ChatController extends Controller
 {
@@ -123,6 +124,13 @@ class ChatController extends Controller
             'chat_id' => $chat->id,
             'user_id' => Auth::id(),
             'message' => $request->message,
+        ]);
+
+        Log::info('Message sent', [
+            'chat_id' => $chatId,
+            'user_id' => Auth::id(),
+            'message' => $message->message,
+            'timestamp' => now(),
         ]);
 
         event(new NewMessage($message->message, Auth::user()->name, $message->created_at));
